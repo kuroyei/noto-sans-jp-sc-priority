@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Fetch Noto Sans CSS
-        run: curl -s https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+SC:wght@100..900&display=swap -o noto-sans.css
+        run: curl -o noto-sans.css https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+SC:wght@100..900&display=swap
 
       - name: Extract Noto Sans SC version
         id: extract-version
