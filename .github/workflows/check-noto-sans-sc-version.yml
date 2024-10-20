@@ -1,0 +1,51 @@
+name: Check Noto Sans SC Version
+
+on:
+  schedule:
+    - cron: "0 0 1 * *" # Runs on the 1st of every month
+  workflow_dispatch:
+
+jobs:
+  check-font-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Fetch Noto Sans CSS
+        run: curl -s https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+SC:wght@100..900&display=swap -o noto-sans.css
+
+      - name: Extract Noto Sans SC version
+        id: extract-version
+        run: |
+          version=$(grep -oP 'https://fonts\.gstatic\.com/s/notosanssc/v\K[0-9]+' noto-sans.css | head -n 1)
+          echo "Found version: $version"
+          echo "version=$version" >> $GITHUB_OUTPUT
+
+      - name: Check if version file exists
+        id: version-file-check
+        run: |
+          if [ -f NotoSansSC-version.txt ]; then
+            echo "Version file exists."
+          else
+            echo "Version file does not exist. Creating new one."
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+        continue-on-error: true
+
+      - name: Compare and update version
+        run: |
+          current_version=$(cat NotoSansSC-version.txt 2>/dev/null || echo "none")
+          new_version=${{ steps.extract-version.outputs.version }}
+
+          if [ "$current_version" != "$new_version" ]; then
+            echo "Version has changed from $current_version to $new_version. Updating..."
+            echo "$new_version" > NotoSansSC-version.txt
+            git config --global user.name "GitHub Action"
+            git config --global user.email "action@github.com"
+            git add NotoSansSC-version.txt
+            git commit -m "update: Noto Sans SC version to $new_version"
+            git push
+          else
+            echo "Version is up-to-date."
+          fi
