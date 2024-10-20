@@ -9,6 +9,7 @@
 フォントファミリーを `'Noto Sans CJK JP'` や `'Noto Sans JP','Noto Sans SC'` と指定した場合、主に簡体字中国語で用いられる漢字の表示が不適切になる場合がある．
 
 ![Noto Sans の比較](https://github.com/user-attachments/assets/6801eeaa-b771-43ff-a616-de69e9f2aa4f)
+*Noto Sans の比較 (上から順に日本, 中国大陸, 香港, 台湾)*
 
 私の主観に基づいて、簡体字中国語向けのフォントの表示を優先させるべき漢字を列挙した．
 
