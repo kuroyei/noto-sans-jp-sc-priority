@@ -67,7 +67,9 @@
 1. 当該漢字の Unicode を調べる．
 2. https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+SC:wght@100..900&display=swap にアクセスする．
 3. 調べた Unicode で検索をかける．
-   | [!Note]
-   | `unicode-range` がハイフン `-` を用いて指定されている場合に注意する．
+
+   > [!Note]
+   > `unicode-range` がハイフン `-` を用いて指定されている場合に注意する．
+
 4. `font-family: 'Noto Sans SC';` なる `@font-face` を見つけ出し、`src` の `.woff2` の URL をコピーする．
 5. `noto-sans-sc-partial.css` に既存の記述に倣ってコードを書く．
